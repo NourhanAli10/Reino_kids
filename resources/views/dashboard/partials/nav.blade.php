@@ -1,96 +1,212 @@
 <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="navbar-brand-wrapper d-flex align-items-center">
-      <a class="navbar-brand brand-logo" href="index.html">
-        <img src="images/logo.svg" alt="logo" class="logo-dark" />
-      </a>
-      <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" /></a>
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+      <a class="navbar-brand brand-logo" href="index.html"><img src="{{ asset('dashboard/assets/images/logo.png')}}" alt="logo" /></a>
+      <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('dashboard/assets/images/logo.png')}}" alt="logo" /></a>
     </div>
-    <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-      <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome stallar dashboard!</h5>
-      <ul class="navbar-nav navbar-nav-right ml-auto">
-        <form class="search-form d-none d-md-block" action="#">
-          <i class="icon-magnifier"></i>
-          <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+      <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+        <span class="mdi mdi-menu"></span>
+      </button>
+      <div class="search-field d-none d-xl-block">
+        <form class="d-flex align-items-center h-100" action="#">
+          <div class="input-group">
+            <div class="input-group-prepend bg-transparent">
+              <i class="input-group-text border-0 mdi mdi-magnify"></i>
+            </div>
+            <input type="text" class="form-control bg-transparent border-0" placeholder="Search products">
+          </div>
         </form>
-        <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><i class="icon-chart"></i></a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link count-indicator message-dropdown" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <i class="icon-speech"></i>
-            <span class="count">7</span>
+      </div>
+      <ul class="navbar-nav navbar-nav-right">
+        <li class="nav-item  dropdown d-none d-md-block">
+          <a class="nav-link dropdown-toggle" id="reportDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Reports </a>
+          <div class="dropdown-menu navbar-dropdown" aria-labelledby="reportDropdown">
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-file-pdf me-2"></i>PDF </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-file-excel me-2"></i>Excel </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-file-word me-2"></i>doc </a>
+          </div>
+        </li>
+        <li class="nav-item  dropdown d-none d-md-block">
+          <a class="nav-link dropdown-toggle" id="projectDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Projects </a>
+          <div class="dropdown-menu navbar-dropdown" aria-labelledby="projectDropdown">
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-eye-outline me-2"></i>View Project </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-pencil-outline me-2"></i>Edit Project </a>
+          </div>
+        </li>
+        <li class="nav-item nav-language dropdown d-none d-md-block">
+          <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="nav-language-icon">
+              <i class="flag-icon flag-icon-us" title="us" id="us"></i>
+            </div>
+            <div class="nav-language-text">
+              <p class="mb-1 text-black">English</p>
+            </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
-            <a class="dropdown-item py-3">
-              <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
-              <span class="badge badge-pill badge-primary float-right">View all</span>
+          <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
+            <a class="dropdown-item" href="#">
+              <div class="nav-language-icon me-2">
+                <i class="flag-icon flag-icon-ae" title="ae" id="ae"></i>
+              </div>
+              <div class="nav-language-text">
+                <p class="mb-1 text-black">Arabic</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <div class="nav-language-icon me-2">
+                <i class="flag-icon flag-icon-gb" title="GB" id="gb"></i>
+              </div>
+              <div class="nav-language-text">
+                <p class="mb-1 text-black">English</p>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item nav-profile dropdown">
+          <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="nav-profile-img">
+              <img src="{{ asset('dashboard/assets/images/faces/face28.png')}}" alt="image">
+            </div>
+            <div class="nav-profile-text">
+              <p class="mb-1 text-black">{{ Auth::user()->name }}</p>
+            </div>
+          </a>
+          <div class="dropdown-menu navbar-dropdown dropdown-menu-right p-0 border-0 font-size-sm" aria-labelledby="profileDropdown" data-x-placement="bottom-end">
+            <div class="p-3 text-center bg-primary">
+              <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('dashboard/assets/images/faces/face28.png')}}" alt="">
+            </div>
+            <div class="p-2">
+              <h5 class="dropdown-header text-uppercase ps-2 text-dark">User Options</h5>
+              <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
+                <span>Inbox</span>
+                <span class="p-0">
+                  <span class="badge badge-primary">3</span>
+                  <i class="mdi mdi-email-open-outline ms-1"></i>
+                </span>
+              </a>
+              <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
+                <span>Profile</span>
+                <span class="p-0">
+                  <span class="badge badge-success">1</span>
+                  <i class="mdi mdi-account-outline ms-1"></i>
+                </span>
+              </a>
+              <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                <span>Settings</span>
+                <i class="mdi mdi-settings"></i>
+              </a>
+              <div role="separator" class="dropdown-divider"></div>
+              <h5 class="dropdown-header text-uppercase  ps-2 text-dark mt-2">Actions</h5>
+              <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
+                <span>Lock Account</span>
+                <i class="mdi mdi-lock ms-1"></i>
+              </a>
+              <a class="dropdown-item py-1 d-flex align-items-center justify-content-between" href="#">
+                <span>Log Out</span>
+                <i class="mdi mdi-logout ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="mdi mdi-email-outline"></i>
+            <span class="count-symbol bg-success"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+            <h6 class="p-3 mb-0 bg-primary text-white py-4">Messages</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <img src="{{ asset('dashboard/assets/images/faces/face4.jpg')}}" alt="image" class="profile-pic">
+              </div>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
+                <p class="text-gray mb-0"> 1 Minutes ago </p>
+              </div>
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+                <img src="{{ asset('dashboard/assets/images/faces/face2.jpg')}}" alt="image" class="profile-pic">
               </div>
-              <div class="preview-item-content flex-grow py-2">
-                <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-                <p class="font-weight-light small-text"> The meeting is cancelled </p>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
+                <p class="text-gray mb-0"> 15 Minutes ago </p>
               </div>
             </a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+                <img src="{{ asset('dashboard/assets/images/faces/face3.jpg')}}" alt="image" class="profile-pic">
               </div>
-              <div class="preview-item-content flex-grow py-2">
-                <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-                <p class="font-weight-light small-text"> The meeting is cancelled </p>
-              </div>
-            </a>
-            <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <img src="images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
-              </div>
-              <div class="preview-item-content flex-grow py-2">
-                <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-                <p class="font-weight-light small-text"> The meeting is cancelled </p>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
+                <p class="text-gray mb-0"> 18 Minutes ago </p>
               </div>
             </a>
+            <div class="dropdown-divider"></div>
+            <h6 class="p-3 mb-0 text-center">4 new messages</h6>
           </div>
         </li>
-        <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
-          <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <div class="d-inline-flex mr-3">
-              <i class="flag-icon flag-icon-us"></i>
-            </div>
-            <span class="profile-text font-weight-normal">English</span>
+        <li class="nav-item dropdown">
+          <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+            <i class="mdi mdi-bell-outline"></i>
+            <span class="count-symbol bg-danger"></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
-            <a class="dropdown-item">
-              <i class="flag-icon flag-icon-us"></i> English </a>
-            <a class="dropdown-item">
-              <i class="flag-icon flag-icon-fr"></i> French </a>
-            <a class="dropdown-item">
-              <i class="flag-icon flag-icon-ae"></i> Arabic </a>
-            <a class="dropdown-item">
-              <i class="flag-icon flag-icon-ru"></i> Russian </a>
-          </div>
-        </li>
-        <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
-          <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <img class="img-xs rounded-circle ml-2" src="images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> Henry Klein </span></a>
-          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-            <div class="dropdown-header text-center">
-              <img class="img-md rounded-circle" src="images/faces/face8.jpg" alt="Profile image">
-              <p class="mb-1 mt-3">Allen Moreno</p>
-              <p class="font-weight-light text-muted mb-0">allenmoreno@gmail.com</p>
-            </div>
-            <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
-            <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> Messages</a>
-            <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i> Activity</a>
-            <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> FAQ</a>
-            <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+          <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+            <h6 class="p-3 mb-0 bg-primary text-white py-4">Notifications</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-success">
+                  <i class="mdi mdi-calendar"></i>
+                </div>
+              </div>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
+                <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-warning">
+                  <i class="mdi mdi-settings"></i>
+                </div>
+              </div>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
+                <p class="text-gray ellipsis mb-0"> Update dashboard </p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-info">
+                  <i class="mdi mdi-link-variant"></i>
+                </div>
+              </div>
+              <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+                <p class="text-gray ellipsis mb-0"> New admin wow! </p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <h6 class="p-3 mb-0 text-center">See all notifications</h6>
           </div>
         </li>
       </ul>
       <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-        <span class="icon-menu"></span>
+        <span class="mdi mdi-menu"></span>
       </button>
     </div>
   </nav>

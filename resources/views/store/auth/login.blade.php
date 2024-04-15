@@ -1,6 +1,6 @@
 @extends('Store.master')
 
-@section('title', 'Register')
+@section('title', 'login')
 
 @section('content')
     <main>
@@ -10,19 +10,23 @@
                 <!-- Pills content -->
                 <div class="tab-content m-5">
                     <div class="m-5">
-                        <form class="login-form">
+                        <form class="login-form" method="POST" action="{{ route('login') }}">
+                            @csrf
                             <h4 class="text-center mb-4">Login</h4>
 
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label pl-3" for="loginName">Email or username</label>
-                                <input type="email" id="loginName" class="form-control" />
+                                <input type="email" name="email" id="loginName" class="form-control" />
+                                @error('email')
+                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <!-- Password input -->
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <label class="form-label" for="loginPassword">Password</label>
-                                <input type="password" id="loginPassword" class="form-control" />
+                                <input type="password" name="password" id="loginPassword" class="form-control" />
                             </div>
 
                             <!-- 2 column grid layout -->

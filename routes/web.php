@@ -2,13 +2,16 @@
 
 
 
-use App\Http\Controllers\dashboard\auth\AuthenticatedSessionController;
-use App\Http\Controllers\dashboard\auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\store\HomeController;
-use App\Http\Controllers\store\ProductController;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 
@@ -26,9 +29,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,11 +49,41 @@ Route::controller(ProductController::class)->group(function() {
     Route::get("/new_products", 'new_products')->name('new-products');
 });
 
+
+
 // ---------------------------Dashboard---------------------------------- //
 
 Route::get('/admin/dashboard', [DashboardController::class , 'index'])->name('dashboard');
-Route::get('/admin/login', [AuthenticatedSessionController::class , 'create']);
-Route::post('/admin/login', [AuthenticatedSessionController::class , 'store'])->name('admin.login');
-Route::get('/admin/register', [RegisteredUserController::class , 'create']);
-Route::post('/admin/register', [RegisteredUserController::class , 'store'])->name('admin.register');
-Route::get('/admin/register', [DashboardController::class , 'register']);
+
+
+Route::get('admin/login', [AuthenticatedSessionController::class, 'create'])
+->name('admin.login');
+
+Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
+
+
+
+Route::get('/admin/register', [RegisteredUserController::class , 'create'])->name('admin.register');
+Route::post('/admin/register', [RegisteredUserController::class , 'store']);
+
+
+// Products//
+
+Route::controller(ProductController::class)->prefix('admin/dashboard/')->name('admin.')
+->group(function() {
+    Route::get('/all-products', 'all_products')->name('all-products');
+    Route::get('/products/add', 'create')->name('create-product');
+    Route::post('/products/add', 'store');
+});
+
+
+//categories//
+
+Route::controller(CategoryController::class)->prefix('admin/dashboard')->name('admin.')
+->group(function() {
+    Route::get("/categories",'index')->name('categories');
+    Route::get("/categories/add", 'create')->name('add-category');
+    Route::post("/categories/add", 'store');
+    Route::get("/categories/edit/{id}", 'edit')->name('update-category');
+    Route::post("/categories/edit", 'update');
+});
