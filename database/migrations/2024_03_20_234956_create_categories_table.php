@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->enum('status', ['Available','Not available'])->default('Available');
+            $table->string('created_by');
             $table->timestamps();
         });
     }

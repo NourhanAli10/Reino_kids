@@ -13,8 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return response()->json('products');
+        $products = Product::orderBy('created_at', 'DESC')->get();
+        return view('dashboard.product.all-products');
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**

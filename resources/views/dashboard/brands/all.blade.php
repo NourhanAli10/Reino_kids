@@ -1,6 +1,6 @@
 @extends('dashboard.master')
 
-@section('title')
+@section('title', 'Brands')
 
     @push('css')
         <style>
@@ -25,11 +25,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-9">
-                        <h4 class="card-title">Categories</h4>
-                        <a href="#" class="d-block mb-4">dashboard/categories</a>
+                        <h4 class="card-title">Brands</h4>
+                        <a href="#" class="d-block mb-4">dashboard/brands</a>
                     </div>
                     <div class="col-3 text-end">
-                        <a href="{{ route('admin.add-category') }}" class="btn btn-lg category-btn">Add new category</a>
+                        <a href="{{ route('dashboard.add-brand') }}" class="btn btn-lg category-btn">Add new brand</a>
                     </div>
                 </div>
                 @if (session()->has('success'))
@@ -46,32 +46,32 @@
                             <th> Created at </th>
                             <th> Updated at </th>
                             <th> Created by</th>
-                            <th> Actions </th>
+                            <th> Action </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($categories->isNotEmpty())
-                            @foreach ($categories as $category)
+                        @if($brands->isNotEmpty())
+                            @foreach ($brands as $brand)
                                 <tr>
-                                    <td> {{ $category->id }} </td>
-                                    <td> {{ $category->name }} </td>
-                                    <td> {{ $category->status }} </td>
-                                    <td> {{ date('d-m-Y', strtotime($category->created_at ))}} </td>
-                                    <td> {{ date('d-m-Y', strtotime($category->updated_at)) }} </td>
-                                    <td> {{ $category->created_by }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.update-category', $category->id) }}" class="btn btn-md px-4 fs-6 py-2 btn-rounded delete-btn">Edit</a>
-                                        <form method="POST" action="{{ route('admin.delete-category', $category->id) }}">
+                                    <td> {{ $brand->id }} </td>
+                                    <td> {{ $brand->name }} </td>
+                                    <td> {{ $brand->status }} </td>
+                                    <td> {{ date('d-m-Y', strtotime($brand->created_at ))}} </td>
+                                    <td> {{ date('d-m-Y', strtotime($brand->updated_at)) }} </td>
+                                    <td> {{ $brand->created_by }}</td>
+                                    <td>
+                                        <a href="{{ route('dashboard.update-brand', $brand->id) }}" class="btn btn-md px-5 fs-6 py-3 btn-rounded">Edit</a>
+                                        <form method="POST" action="{{ route('dashboard.delete-brand', $brand->id) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-md mt-2 px-4 py-2 fs-6 btn-rounded delete-btn">Delete</button>
+                                            <button type="submit" class="btn btn-md mt-2 px-5 py-3 fs-6 btn-rounded delete-btn">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
                         @else
                         <tr>
-                            <td colspan="7" class="text-center">No categories are currently here</td>
+                            <td colspan="7" class="text-center">No Brands are currently here</td>
                         </tr>
                         @endif
                     </tbody>

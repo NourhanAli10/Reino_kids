@@ -4,12 +4,14 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\dashboard\BrandController;
 use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\dashboard\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\store\HomeController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -69,10 +71,10 @@ Route::post('/admin/register', [RegisteredUserController::class , 'store']);
 
 // Products//
 
-Route::controller(ProductController::class)->prefix('admin/dashboard/')->name('admin.')
+Route::controller(ProductController::class)->prefix('admin/dashboard/')->name('dashboard.')
 ->group(function() {
-    Route::get('/all-products', 'all_products')->name('all-products');
-    Route::get('/products/add', 'create')->name('create-product');
+    Route::get('/all-products', 'index')->name('all_products');
+    Route::get('/products/add', 'create')->name('create_product');
     Route::post('/products/add', 'store');
 });
 
@@ -85,5 +87,30 @@ Route::controller(CategoryController::class)->prefix('admin/dashboard')->name('a
     Route::get("/categories/add", 'create')->name('add-category');
     Route::post("/categories/add", 'store');
     Route::get("/categories/edit/{id}", 'edit')->name('update-category');
-    Route::post("/categories/edit", 'update');
+    Route::put("/categories/edit/{id}", 'update');
+    Route::delete("/categories/delete/{id}", 'destroy')->name('delete-category');
 });
+
+
+Route::controller(BrandController::class)->prefix('admin/dashboard')->name('dashboard.')
+->group(function() {
+    Route::get("/brands",'index')->name('all-brands');
+    Route::get("/brands/add", 'create')->name('add-brand');
+    Route::post("/brands/add", 'store');
+    Route::get("/brands/edit/{id}", 'edit')->name('update-brand');
+    Route::put("/brands/edit/{id}", 'update');
+    Route::delete("/brands/delete/{id}", 'destroy')->name('delete-brand');
+});
+
+
+// Route::controller(UserController::class)->prefix('admin/dashboard')->name('dashboard.')
+// ->group(function() {
+
+//     Route::get('/all-users')->
+
+// });
+
+
+
+
+

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string("image");
+            $table->string('slug')->unique();
+            $table->string('created_by');
             $table->enum('status', ['available', 'not_available'])->nullable();
             $table->timestamps();
         });

@@ -16,6 +16,45 @@
         </li> --}}
 
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-user" aria-expanded="false"
+                aria-controls="ui-user">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Users</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-user">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="{{ route('admin.categories') }}">All Users</a>
+                    </li>
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="{{ route('admin.add-category') }}">Add User</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-products" aria-expanded="false"
+                aria-controls="ui-products">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Products</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-products">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="{{ route('dashboard.all_products') }}">All Products</a>
+                    </li>
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="{{ route('dashboard.create_product') }}">Add Product</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-category" aria-expanded="false"
                 aria-controls="ui-category">
                 <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
@@ -35,7 +74,24 @@
         </li>
 
 
-
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-brand" aria-expanded="false"
+                aria-controls="ui-brand">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Brands</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-brand">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item  @if(Request::segment(3) === "brands") active @endif">
+                        <a class="nav-link" href="{{ route('dashboard.all-brands') }}">All Brands</a>
+                    </li>
+                    <li class="nav-item  @if(Request::segment(2) === "") active @endif">
+                        <a class="nav-link" href="{{ route('dashboard.add-brand') }}">Add Brand</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                 aria-controls="ui-basic">
