@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         {{-- <li class="nav-item nav-category">Main</li> --}}
-        <li class="nav-item  @if(Request::segment(2) === "dashboard") active @endif">
+        <li class="nav-item">
             <a class="nav-link " href="{{ route('dashboard') }}">
                 <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
                 <span class="menu-title">Dashboard</span>
@@ -24,16 +24,42 @@
             </a>
             <div class="collapse" id="ui-user">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item active ">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.categories') }}">All Users</a>
                     </li>
-                    <li class="nav-item active ">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.add-category') }}">Add User</a>
                     </li>
                 </ul>
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-colors" aria-expanded="false"
+                aria-controls="ui-colors">
+                <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                <span class="menu-title">Colors</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-colors">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard.all-colors') }}">All Colors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard.add-color') }}">Add Color</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link " href="{{ route('dashboard.all-sizes') }}">
+                <span class="icon-bg"><i class="mdi mdi-cube menu-icon"></i></span>
+                <span class="menu-title">Sizes</span>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-products" aria-expanded="false"
@@ -44,10 +70,10 @@
             </a>
             <div class="collapse" id="ui-products">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item active ">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.all_products') }}">All Products</a>
                     </li>
-                    <li class="nav-item active ">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.create_product') }}">Add Product</a>
                     </li>
                 </ul>
@@ -63,10 +89,10 @@
             </a>
             <div class="collapse" id="ui-category">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item  @if(Request::segment(3) === "categories") active @endif">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.categories') }}">All Categories</a>
                     </li>
-                    <li class="nav-item  @if(Request::segment(2) === "") active @endif">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.add-category') }}">Add Category</a>
                     </li>
                 </ul>
@@ -83,10 +109,10 @@
             </a>
             <div class="collapse" id="ui-brand">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item  @if(Request::segment(3) === "brands") active @endif">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.all-brands') }}">All Brands</a>
                     </li>
-                    <li class="nav-item  @if(Request::segment(2) === "") active @endif">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.add-brand') }}">Add Brand</a>
                     </li>
                 </ul>
@@ -178,14 +204,13 @@
         </li>
         <li class="nav-item sidebar-user-actions">
             <div class="sidebar-user-menu">
-                <a href="#" class="nav-link"><i class="mdi mdi-speedometer menu-icon"></i>
-                    <span class="menu-title">Take Tour</span></a>
-            </div>
-        </li>
-        <li class="nav-item sidebar-user-actions">
-            <div class="sidebar-user-menu">
-                <a href="#" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
-                    <span class="menu-title">Log Out</span></a>
+                <form  action="{{ route('admin.logout') }}" method="post">
+                    @csrf
+                    {{-- <a href="" class="nav-link"><i class="mdi mdi-logout menu-icon"></i>
+                        <span class="menu-title">Log Out</span></a> --}}
+                        <button type="submit">Logout</button>
+                </form>
+
             </div>
         </li>
     </ul>

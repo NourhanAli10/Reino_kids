@@ -113,14 +113,14 @@
                 <div class="product-list text-center">
                     <ul class="nav text-center" id="nav-tab" role="tablist">
                         <li class="nav-item">
-                            <button class="nav-link nav-tab active" id="nav-all-product-tab" data-toggle="tab" data-route="{{ route('all-products') }}" data-target="#all-products" role="tab" aria-controls="nav-home" aria-selected="true">
+                            <button class="nav-link nav-tab active" id="all-products-tab" data-toggle="tab" data-target="#all-products" role="tab" aria-controls="nav-home" aria-selected="true">
                                 All Products</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link nav-tab" id="nav-profile-tab" data-toggle="tab"  data-route="{{ route('new-products') }}" data-target="#new-products" role="tab" aria-controls="new-products" aria-selected="false">New Products</button>
+                            <button class="nav-link nav-tab" id="new_products_tab" data-toggle="tab" data-target="#new-products" role="tab" aria-controls="new-products" aria-selected="false">New Products</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link nav-tab" id="nav-contact-tab" data-toggle="tab"  data-route="{{ route('all-products') }}" data-target="#best-seller" role="tab" aria-controls="best-seller" aria-selected="false">Best seller</button>
+                            <button class="nav-link nav-tab" id="nav-contact-tab" data-toggle="tab" data-target="#best-seller" role="tab" aria-controls="best-seller" aria-selected="false">Best seller</button>
                         </li>
                         <li class="nav-item">
                             <button class="nav-link nav-tab" id="nav-last-tab" data-toggle="tab" data-target="#offers" role="tab" aria-controls="offers" aria-selected="false">Offers</button>
@@ -132,44 +132,47 @@
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active" id="all-products">
-                        <div class="row justify-content-between mt-5" id="products-container">
-                                    <div class="col-3 new-arrival">
-                                        <div class="hover">
-                                            <a href="#"><img
-                                                    src="{{ asset('front_assets/Images/Capture2.jpg') }}"></a>
-                                            <div class="product-icon">
-                                                <a href="#" class="icon">
-                                                    <span class="material-symbols-outlined">
-                                                        favorite
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="icon">
-                                                    <span class="material-symbols-outlined">
-                                                        shopping_bag
-                                                    </span>
-                                                </a>
-                                                <a href="#" class="icon">
-                                                    <span class="material-symbols-outlined">
-                                                        visibility
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
 
-                                        <div class="text-center mt-3">
-                                            <a href="#" class="text-decoration-none">
-                                                <p class="text-center text-dark fw-bold product-name"></p>
-                                            </a>
-                                            <div>
-                                                <p class="product-price">EGP </p>
+                            <div class="row justify-content-between mt-5" id="products-container">
+                                @foreach($products as $product)
+                                        <div class="col-3 new-arrival">
+                                            <div class="hover">
+                                                <a href="#"><img
+                                                        src="{{ asset('front_assets/Images/Capture2.jpg') }}"></a>
+                                                <div class="product-icon">
+                                                    <a href="#" class="icon">
+                                                        <span class="material-symbols-outlined">
+                                                            favorite
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="icon">
+                                                        <span class="material-symbols-outlined">
+                                                            shopping_bag
+                                                        </span>
+                                                    </a>
+                                                    <a href="#" class="icon">
+                                                        <span class="material-symbols-outlined">
+                                                            visibility
+                                                        </span>
+                                                    </a>
+                                                </div>
                                             </div>
 
+                                            <div class="text-center mt-3">
+                                                <a href="#" class="text-decoration-none">
+                                                    <p class="text-center text-dark fw-bold product-name">{{ $product->name }}</p>
+                                                </a>
+                                                <div>
+                                                    <p class="product-price">EGP {{ $product->price }}</p>
+                                                </div>
+
+                                            </div>
+
                                         </div>
 
-                                    </div>
 
-
-                        </div>
+                            </div>
+                        @endforeach
 
 
                         <div class="pt-5 d-block m-auto text-center">
@@ -988,26 +991,20 @@
 
 
 @push('js')
-    {{-- <script>
+    <script>
         $(document).ready(function() {
-
-            fetchAll();
-
-            function fetchAll() {
-
+            $('#new_products_tab').on('click', function() {
                 $.ajax({
-                    type: "GET",
-                    url: "{{ route('all-products') }}",
-                    dataType: "json",
-                    success: function(response) {
-                        $.each(response.products, function(key, item)) {
+                type:"GET",
+                url:"{{ route('home.new_products') }}",
+                dataType: 'json',
+                success: function(response) {
 
-                        }
-                    },
-                });
+                },
+            });
 
-            }
+            });
 
         });
-    </script> --}}
+    </script>
 @endpush

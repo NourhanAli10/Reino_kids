@@ -2,9 +2,19 @@
 
 namespace App\Http\Controllers\dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Models\Size;
+use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Image;
 use App\Models\Product;
+use App\Services\Media;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\dashboard\StoreProduct;
 
 class ProductController extends Controller
 {
@@ -13,8 +23,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
-        return view('dashboard.product.all-products');
+        $products = Product::with(['colors', 'sizes'])->orderBy('created_at', 'DESC')->get();
+        return view('dashboard.product.all-products', compact('products'));
     }
 
     /**
@@ -22,7 +32,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-       return view('dashboard.product.create-product');
+        $categories = Category::all();
+        $brands = Brand::all();
+        $colors = Color::all();
+        $sizes = Size::all();
+        return view('dashboard.product.create-product', compact(
+            'categories',
+            'brands',
+            'colors',
+            'sizes'
+        ));
     }
 
     /**
@@ -31,6 +50,49 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
+
+        $data = $request->except('_token', 'image');
+        $slug = Str::slug($request->name, '-');
+        $productId = Product::max('id') + 1;
+        $data['slug'] = $slug . '-' . $productId;
+        $data['created_by'] = Auth::user()->name;
+        $product = Product::create($data);
+
+
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                $media = new Media();
+                $imageUrl = $media->UploadMedia($image, 'products');
+                $productImage['image_url'] = $imageUrl;
+                $productImage['product_id'] = $product->id;
+                Image::create($productImage);
+            }
+        }
+
+        foreach ($request->colors as $colorId) {
+            foreach ($request->sizes as $sizeId) {
+                DB::table('product_variants')->insert([
+                    'product_id' => $product->id,
+                    'color_id' => $colorId,
+                    'size_id' => $sizeId,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+        }
+
+        if ($product) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Product has been added successfully',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product has not been added successfully',
+            ]);
+        }
     }
 
     /**
@@ -46,7 +108,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::all();
+        $brands = Brand::all();
+        $colors = Color::all();
+        return view();
     }
 
     /**

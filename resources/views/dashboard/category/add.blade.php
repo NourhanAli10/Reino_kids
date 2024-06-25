@@ -31,8 +31,7 @@
                         </select>
                     </div>
                     <div class="text-end mt-5">
-                        <button type="submit" class="btn btn-lg btn-primary me-2">Submit</button>
-                        <button class="btn btn-lg btn-light">Cancel</button>
+                        <button type="submit" class="btn btn-lg me-2">Create</button>
                     </div>
 
                 </form>

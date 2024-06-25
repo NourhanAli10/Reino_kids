@@ -1,58 +1,81 @@
 @extends('dashboard.master')
 
 @section('content')
-
-<div class="col-lg-9 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-9">
-                    <h4 class="card-title">Brands</h4>
-                    <a href="#" class="d-block mb-4">dashboard/brands</a>
+    <div class="col-lg-9 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <h4 class="card-title">Products</h4>
+                        <a href="#" class="d-block mb-4">dashboard/Products</a>
+                    </div>
+                    <div class="col-3 text-end">
+                        <a href="{{ route('dashboard.create_product') }}" class="btn btn-lg category-btn">Add new Product</a>
+                    </div>
                 </div>
-                <div class="col-3 text-end">
-                    <a href="" class="btn btn-lg category-btn">Add new brand</a>
-                </div>
-            </div>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th> ID </th>
-                        <th> Name </th>
-                        <th> Status </th>
-                        <th> Created at </th>
-                        <th> Updated at </th>
-                        <th> Created by</th>
-                        <th> Action </th>
-                    </tr>
-                </thead>
-                <tbody>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
 
+                            <th> Product Name </th>
+                            <th> Code </th>
+                            <th> Brand </th>
+                            <th> Category </th>
+                            <th> Quantity </th>
+                            <th> Colors </th>
+                            <th> Sizes </th>
+                            <th> Price </th>
+                            <th> Status </th>
+                            <th> Created by</th>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($products->IsNotEmpty())
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->code }}</td>
+                                    <td>{{ $product->brand_id }}</td>
+                                    <td>{{ $product->category_id }}</td>
+                                    <td>{{ $product->quantity }}</td>
+                                    <td>
+                                        @foreach ($product->colors as $color)
+                                        {{ $color->name }} <br>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($product->sizes as $size)
+                                        {{$size->name }} <br>
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>
+                                        @if($product->status === 'available')
+                                            <span class="badge bg-success">Available</span>
+                                        @else
+                                            <span class="badge bg-danger">Not Available</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $product->created_by }}</td>
+                                    <td>
+                                        <a href="" class="me-3 text-primary"><i
+                                                class="mdi mdi-pencil font-size-18"></i></a>
+                                        <button type="submit" class="text-danger"><i
+                                                class="mdi mdi-close font-size-18"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        @else
                             <tr>
-                                <td>  </td>
-                                <td> </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td> </td>
-                                <td>
-                                    <a href="" class="btn btn-md px-5 fs-6 py-3 btn-rounded">Edit</a>
-
-                                        <button type="submit" class="btn btn-md mt-2 px-5 py-3 fs-6 btn-rounded delete-btn">Delete</button>
-
-                                </td>
+                                <td colspan="8" class="text-center">No Products are currently here</td>
                             </tr>
-
-
-                    <tr>
-                        <td colspan="7" class="text-center">No Brands are currently here</td>
-                    </tr>
-
-                </tbody>
-            </table>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-
 @endsection

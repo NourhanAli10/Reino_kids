@@ -2,22 +2,17 @@
 
 
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\dashboard\BrandController;
-use App\Http\Controllers\dashboard\CategoryController;
-use App\Http\Controllers\dashboard\DashboardController;
-use App\Http\Controllers\dashboard\ProductController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\store\HomeController;
-use Illuminate\Support\Facades\Route;
-
-
-
-
-
-
-
+use App\Http\Controllers\dashboard\BrandController;
+use App\Http\Controllers\dashboard\ColorController;
+use App\Http\Controllers\dashboard\ProductController;
+use App\Http\Controllers\dashboard\CategoryController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\dashboard\SizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +38,22 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
+/////////////////////////////store/////////////////////////
 Route::get("/", [HomeController::class, 'index'])->name('home');
+Route::get("/new-products", [HomeController::class, 'newProducts'])->name('home.new_products');
+// Route::get("/new-products", [HomeController::class, 'newProducts'])->name('home.new_products');
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::controller(ProductController::class)->group(function() {
     Route::get("/all-products",  'all_products')->name('all-products');
@@ -67,6 +76,9 @@ Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::get('/admin/register', [RegisteredUserController::class , 'create'])->name('admin.register');
 Route::post('/admin/register', [RegisteredUserController::class , 'store']);
+
+Route::post('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])
+->name('admin.logout');
 
 
 // Products//
@@ -102,6 +114,28 @@ Route::controller(BrandController::class)->prefix('admin/dashboard')->name('dash
     Route::delete("/brands/delete/{id}", 'destroy')->name('delete-brand');
 });
 
+
+Route::controller(ColorController::class)->prefix('admin/dashboard')->name('dashboard.')
+->group(function() {
+    Route::get("/colors/all",'index')->name('all-colors');
+    Route::get("/colors/add", 'create')->name('add-color');
+    Route::post("/colors/add", 'store');
+    Route::get("/colors/edit/{id}", 'edit')->name('update-color');
+    Route::put("/colors/edit/{id}", 'update');
+    Route::delete("/colors/delete/{id}", 'destroy')->name('delete-color');
+});
+
+
+
+Route::controller(SizeController::class)->prefix('admin/dashboard')->name('dashboard.')
+->group(function() {
+    Route::get("/size/all",'index')->name('all-sizes');
+    Route::get("/size/add", 'create')->name('add-size');
+    Route::post("/size/add", 'store');
+    Route::get("/size/edit/{id}", 'edit')->name('update-size');
+    Route::put("/size/edit/{id}", 'update');
+    Route::delete("/size/delete/{id}", 'destroy')->name('delete-size');
+});
 
 // Route::controller(UserController::class)->prefix('admin/dashboard')->name('dashboard.')
 // ->group(function() {

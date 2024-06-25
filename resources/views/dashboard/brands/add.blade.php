@@ -46,7 +46,6 @@
                     </div>
                     <div class="text-end mt-5">
                         <button type="submit" class="btn btn-lg me-2">Create</button>
-                        <button class="btn btn-lg">Cancel</button>
                     </div>
 
                 </form>
